@@ -37,3 +37,13 @@ test('Login with empty password field', async() => {
     expect(res.status()).toBe(200);
     expect(body.responseCode).toBe(404);
 })
+
+test('Login with DELETE method to /api/verifyLogin', async ()=>{
+    const res = await apiContext.delete('/api/verifyLogin');
+    const body = await res.json();
+
+    expect(res.status()).toBe(200);
+    expect(body.responseCode).toBe(405);
+    expect(body.message).toContain('not supported')
+
+})
