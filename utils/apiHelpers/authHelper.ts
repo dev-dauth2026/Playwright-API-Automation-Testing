@@ -19,15 +19,13 @@ export async function login(apiContext: APIRequestContext, user: { email: string
   return { res, body };
 }
 
-export async function createAccount(apiContext, user: { name: string; email: string }) {
+export async function createAccount(apiContext: APIRequestContext, userData: Record<string, string>) {
     const res = await apiContext.post('/api/createAccount', {
-      form: {
-        name: user.name,
-        email: user.email,
-      },
-      headers: {
-        Referer: 'https://automationexercise.com',
-      },
+        form: userData,
+        headers: {
+          Referer: 'https://automationexercise.com',
+        },
+      
     });
   
     const text = await res.text();
