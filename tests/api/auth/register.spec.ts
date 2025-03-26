@@ -7,7 +7,7 @@ import {
   invalidMobileUser,
   missingPasswordUser,
   invalidTitleUser,
-} from '../../../utils/testData';
+} from '../../../utils/testData/registerTestData';
 import { createAccount } from '../../../utils/apiHelpers/authHelper';
 
 let apiContext;
