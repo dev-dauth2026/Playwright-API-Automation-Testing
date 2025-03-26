@@ -7,7 +7,7 @@ test.beforeAll(async () => {
     apiContext = await request.newContext({
         baseURL: 'https://automationexercise.com',
     });
-    const { res, body } = await getAllProducts(apiContext);
+
 });
 
 
@@ -55,6 +55,17 @@ test.describe('GET /api/productsList - All Products API', () => {
     expect(res.status()).toBe(200);
     const duration = end - start;
     expect(duration).toBeLessThan(2000); // under 2 seconds
+  });
+
+  test('Should return 405 when using POST on /productsList (method not allowed)', async () => {
+    const res = await apiContext.post('/api/productsList');
+  
+    const body = await res.json();
+  
+    expect(res.status()).toBe(200);
+    expect(body.responseCode).toBe(405);
+    expect(body).toHaveProperty('message');
+    expect(body.message.toLowerCase()).toContain('not supported');
   });
 
 });
