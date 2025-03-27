@@ -17,30 +17,34 @@ This project is a **modular and CI/CD-ready API automation test suite** built us
 
 ## Project Structure
 
+<pre>
+<code>
 .
 ├── tests/
 │   └── api/
 │       ├── auth/
 │       │   ├── login.spec.ts
 │       │   ├── register.spec.ts
-│       │   └── deleteUserAccount.spec.ts
+│       │   └── deleteAccount.spec.ts
 │       ├── products/
-│       │   ├── getAllProducts.spec.ts
+│       │   ├── getAllBrands.spec.ts
+|		|	├── getAllProducts.spec.ts
 │       │   └── searchProduct.spec.ts
-│       └── brands/
-│           └── getAllBrands.spec.ts
+│       
 ├── utils/
 │   └── apiHelpers/
 │       ├── authHelper.ts
+|		└── brandHelper.ts
 │       ├── productHelper.ts
-│       └── responseValidators.ts
+│       
 ├── testData/
+│   ├── authTestData.ts
 │   └── registerTestData.ts
-│   └── authTestData.ts
 ├── playwright.config.ts
 └── README.md
+</code>
+</pre>
 
----
 
 ## API Endpoints Covered
 
