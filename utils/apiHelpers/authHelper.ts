@@ -31,5 +31,26 @@ export async function createAccount(apiContext: APIRequestContext, userData: Rec
     const text = await res.text();
     const body = JSON.parse(text);
   
-    return { res, body };
+    return { 
+        email: userData.email,
+        password: userData.password, 
+        res, 
+        body };
   }
+
+export async function deleteAccount(apiContext:APIRequestContext, user: { email: string, password: string}){
+    const res = await apiContext.delete('/api/deleteAccount',{
+        form: {
+            email: user.email,
+            password: user.password,
+        },
+        headers: {
+            Referer: 'https://automationexercise.com',
+        },
+    });
+
+    const text = await res.text();
+    const body = JSON.parse(text);
+
+    return { res, body };
+}
