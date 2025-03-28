@@ -1,0 +1,6 @@
+TAP version 13
+# Subtest: DELETE Account /api/deleteAccount - Positive and Negative Scenarios
+ok 1 - DELETE Account /api/deleteAccount - Positive and Negative Scenarios
+  ---
+  duration_ms: 0.634459
+  ...

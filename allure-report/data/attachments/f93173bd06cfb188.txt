@@ -1,0 +1,91 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Create Account - Positive and Negative Scenarios >> Should fail with missing password
+- Location: /Users/dauthgurung/Desktop/softwaretesting/apitesting/tests/api/auth/register.spec.ts:54:7
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+    at /Users/dauthgurung/Desktop/softwaretesting/apitesting/tests/api/auth/register.spec.ts:57:31
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect, request } from '@playwright/test';
+   2 | import {
+   3 |   validRegisterUser,
+   4 |   existingRegisterUser,
+   5 |   emptyRegisterUser,
+   6 |   invalidEmailUser,
+   7 |   invalidMobileUser,
+   8 |   missingPasswordUser,
+   9 |   invalidTitleUser,
+  10 | } from '../../../utils/testData/registerTestData';
+  11 | import { createAccount } from '../../../utils/apiHelpers/authHelper';
+  12 |
+  13 | let apiContext;
+  14 |
+  15 | test.beforeAll(async () => {
+  16 |   apiContext = await request.newContext({
+  17 |     baseURL: 'https://automationexercise.com',
+  18 |   });
+  19 | });
+  20 |
+  21 | test.describe('Create Account - Positive and Negative Scenarios', () => {
+  22 |   test('Should create account with valid data', async () => {
+  23 |     const { res, body } = await createAccount(apiContext, validRegisterUser);
+  24 |     expect(res.status()).toBe(200);
+  25 |     expect(body.responseCode).toBe(201);
+  26 |     expect(body.message).toBe('User created!');
+  27 |   });
+  28 |
+  29 |   test('Should fail with existing email', async () => {
+  30 |     const { res, body } = await createAccount(apiContext, existingRegisterUser);
+  31 |     expect(res.status()).toBe(200);
+  32 |     expect(body.responseCode).toBe(400);
+  33 |     expect(body.message).toContain('already exists');
+  34 |   });
+  35 |
+  36 |   test('Should fail with empty fields', async () => {
+  37 |     const { res, body } = await createAccount(apiContext, emptyRegisterUser);
+  38 |     expect(res.status()).toBe(200);
+  39 |     expect(body.responseCode).toBe(400);
+  40 |   });
+  41 |
+  42 |   test('Should fail with invalid email', async () => {
+  43 |     const { res, body } = await createAccount(apiContext, invalidEmailUser);
+  44 |     expect(res.status()).toBe(200);
+  45 |     expect(body.responseCode).toBe(400);
+  46 |   });
+  47 |
+  48 |   test('Should fail with invalid mobile number', async () => {
+  49 |     const { res, body } = await createAccount(apiContext, invalidMobileUser);
+  50 |     expect(res.status()).toBe(200);
+  51 |     expect(body.responseCode).toBe(400);
+  52 |   });
+  53 |
+  54 |   test('Should fail with missing password', async () => {
+  55 |     const { res, body } = await createAccount(apiContext, missingPasswordUser);
+  56 |     expect(res.status()).toBe(200);
+> 57 |     expect(body.responseCode).toBe(400);
+     |                               ^ Error: expect(received).toBe(expected) // Object.is equality
+  58 |   });
+  59 |
+  60 |   test('Should fail with unsupported title', async () => {
+  61 |     const { res, body } = await createAccount(apiContext, invalidTitleUser);
+  62 |     expect(res.status()).toBe(200);
+  63 |     expect(body.responseCode).toBe(400);
+  64 |   });
+  65 | });
+```
